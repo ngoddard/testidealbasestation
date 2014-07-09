@@ -3,12 +3,24 @@ var async = require('async');
 var noble = require('noble');
 
 var client = request.newClient('http://klimasense.com:3001');
+var spawn = require('child_process').spawn;
+var out = fs.openSync('./out.log', 'a');
+var err = fs.openSync('./out_err.log', 'a');
 
 //var peripheralUuid = process.argv[2];
 
 var peripherals = {};
 var unconnected = {};
 
+
+var child = spawn(
+    '/usr/bin/bluetooth_start.sh',
+    [],
+    {
+        detached: true,
+        stdio: [ 'ignore', out, err ]
+    }
+    );
 noble.on('stateChange', function(state) {
   if (state === 'poweredOn') {
     noble.startScanning(["180d"], false);
