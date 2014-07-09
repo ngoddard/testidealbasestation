@@ -27,7 +27,7 @@ child.stdout.on('data', function (data) {
 });
 
 child.stderr.on('data', function (data) {
-  log.error('stderr: ' + data);
+  log.err('stderr: ' + data);
 });
 
 child.on('close', function (code) {
