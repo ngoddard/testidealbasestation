@@ -1,18 +1,18 @@
 {
-  "name": "resin-text2speech",
-  "description": "Simple resin app that uses Google's TTS endpoint",
+  "name": "ideal-basestation",
+  "description": "IDEAL basestation scripts",
   "repository": {
     "type": "git",
-    "url": "https://petrosagg@bitbucket.org/rulemotion/resin-text2speech.git"
+    "url": "https://janekm@bitbucket.org/janekm/ideal_node.git"
   },
   "scripts": {
     "preinstall": "bash deps.sh"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
-    "speaker": "~0.0.10",
-    "request": "~2.22.0",
-    "lame": "~1.0.2"
+    "noble": "~0.3.1",
+    "request-json": "~0.4.10",
+    "async": "~0.9.0",
   },
   "engines": {
       "node": "0.10.22"
