@@ -19,6 +19,8 @@ var log = logentries.logger({
   token:'cc436528-4be5-4bc5-8230-4835e6268dd3'
 });
 
+log.log('App starting');
+
 var child = spawn(
     '/usr/bin/bluetooth_start.sh',
     [],
