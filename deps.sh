@@ -1,3 +1,4 @@
+apt-get update
 apt-get install -y libbluetooth-dev
 apt-get install -y bluez
 apt-get install -y bluez-utils
