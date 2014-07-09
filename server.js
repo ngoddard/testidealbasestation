@@ -23,12 +23,20 @@ log.info('App starting');
 
 var child = spawn(
     '/usr/bin/bluetooth_start.sh',
-    [],
-    {
-        detached: true,
-        stdio: [ 'ignore', out, err ]
-    }
+    []
     );
+
+child.stdout.on('data', function (data) {
+  log.info('stdout: ' + data);
+});
+
+child.stderr.on('data', function (data) {
+  log.error('stderr: ' + data);
+});
+
+child.on('close', function (code) {
+  log.info('child process exited with code ' + code);
+});
 noble.on('stateChange', function(state) {
   if (state === 'poweredOn') {
     noble.startScanning(["180d"], false);
