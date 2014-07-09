@@ -14,6 +14,10 @@ var err = fs.openSync('./out_err.log', 'a');
 var peripherals = {};
 var unconnected = {};
 
+var logentries = require('node-logentries');
+var log = logentries.logger({
+  token:'cc436528-4be5-4bc5-8230-4835e6268dd3'
+});
 
 var child = spawn(
     '/usr/bin/bluetooth_start.sh',
@@ -41,7 +45,7 @@ setInterval(function(){
 
 noble.on('discover', function(peripheral) {
     if(peripherals[peripheral.uuid]) {
-      console.log(peripheral.advertisement.localName + ' already connected.');
+      log.info(peripheral.advertisement.localName + ' already connected.');
 
     } else {
       //peripherals[peripheral.uuid] = peripheral;
@@ -49,7 +53,7 @@ noble.on('discover', function(peripheral) {
   //if (peripheral.uuid === peripheralUuid) {
     //noble.stopScanning();
 
-    console.log('peripheral with UUID ' + peripheral.uuid + ' found');
+    log.info('peripheral with UUID ' + peripheral.uuid + ' found');
     var advertisement = peripheral.advertisement;
 
     var localName = advertisement.localName;
@@ -59,26 +63,26 @@ noble.on('discover', function(peripheral) {
     var serviceUuids = advertisement.serviceUuids;
 
     if (localName) {
-      console.log('  Local Name        = ' + localName);
+      log.info('  Local Name        = ' + localName);
     }
 
     if (txPowerLevel) {
-      console.log('  TX Power Level    = ' + txPowerLevel);
+      log.info('  TX Power Level    = ' + txPowerLevel);
     }
 
     if (manufacturerData) {
-      console.log('  Manufacturer Data = ' + manufacturerData.toString('hex'));
+      log.info('  Manufacturer Data = ' + manufacturerData.toString('hex'));
     }
 
     if (serviceData) {
-      console.log('  Service Data      = ' + serviceData);
+      log.info('  Service Data      = ' + serviceData);
     }
 
     if (localName) {
-      console.log('  Service UUIDs     = ' + serviceUuids);
+      log.info('  Service UUIDs     = ' + serviceUuids);
     }
 
-    console.log();
+    log.info();
 
     //explore(peripheral);
   }
@@ -87,15 +91,15 @@ noble.on('discover', function(peripheral) {
 
 function explore(peripheral) {
   try {
-  console.log('services and characteristics:');
+  log.info('services and characteristics:');
   delete unconnected[peripheral.uuid];
   peripheral.on('disconnect', function() {
-    console.log(peripheral.advertisement.localName + ' has disconnected.');
+    log.info(peripheral.advertisement.localName + ' has disconnected.');
     try {
     delete peripherals[peripheral.uuid];
     peripheral.removeAllListeners('disconnect');
     } catch (e) {
-      console.log(e);
+      log.info(e);
     }
     //unconnected[peripheral.uuid] = peripheral;
     //noble.startScanning(["180d"], false);
@@ -106,18 +110,18 @@ function explore(peripheral) {
   peripheral.connect(function(error) {
     peripherals[peripheral.uuid] = peripheral;
     peripheral.discoverServices([], function(error, services) {
-      //console.log(services);
+      //log.info(services);
       var serviceIndex = 0;
       services.forEach(function(_service) {
-        //console.log(_service);
-        //console.log(_service['uuid']);
+        //log.info(_service);
+        //log.info(_service['uuid']);
         if (_service.uuid == '180d') {
           _service.discoverCharacteristics(["2a37"], function(error, characteristics) {
             var characteristic = characteristics[0];
             characteristic.on('read', function(value, isNotification) {
-              //console.log(value);
-              console.log(value.readInt16LE(6)/10.0);
-              console.log(value.readInt16LE(8)/10.0);
+              //log.info(value);
+              log.info(value.readInt16LE(6)/10.0);
+              log.info(value.readInt16LE(8)/10.0);
               var data = {
                 devicekey: peripheral.uuid,
                 devicename: peripheral.advertisement.localName,
@@ -129,29 +133,29 @@ function explore(peripheral) {
               }
               client.post('graphs/', data, function (err, res, body) {
                 if(err) {
-                  console.log(err);
+                  log.info(err);
                 } else {
-                //console.log(err);
-                //console.log(res);
-                //console.log(body);
-                  return console.log(res.statusCode);
+                //log.info(err);
+                //log.info(res);
+                //log.info(body);
+                  return log.info(res.statusCode);
                 }
               })
             });
             setTimeout(function(){
               characteristic.notify(true, function(error){
-              console.log("notification enabled");
-              console.log(error);
+              log.info("notification enabled");
+              log.info(error);
             }, 100);
             })
-            console.log(characteristics[0].name);
+            log.info(characteristics[0].name);
           });
-          //console.log(_service);
+          //log.info(_service);
         }
       });
     });
   });
   } catch (e) {
-    console.log(e);
+    log.info(e);
   }
 }
