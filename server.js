@@ -1,20 +1,16 @@
 var request = require('request-json');
 var async = require('async');
-var noble = require('noble');
-
-var fs = require('fs');
+var logentries = require('node-logentries');
 
 var client = request.newClient('http://klimasense.com:3001');
 var spawn = require('child_process').spawn;
-var out = fs.openSync('./out.log', 'a');
-var err = fs.openSync('./out_err.log', 'a');
 
 //var peripheralUuid = process.argv[2];
 
 var peripherals = {};
 var unconnected = {};
 
-var logentries = require('node-logentries');
+
 var log = logentries.logger({
   token:'cc436528-4be5-4bc5-8230-4835e6268dd3'
 });
@@ -36,7 +32,11 @@ child.stderr.on('data', function (data) {
 
 child.on('close', function (code) {
   log.info('child process exited with code ' + code);
+
 });
+
+
+var noble = require('noble');
 noble.on('stateChange', function(state) {
   if (state === 'poweredOn') {
     noble.startScanning(["180d"], false);
@@ -137,9 +137,9 @@ function explore(peripheral) {
                 devicename: peripheral.advertisement.localName,
                 humidity: value.readInt16LE(8)/10.0,
                 temperature: value.readInt16LE(6)/10.0,
-		ext_temperature: value.readInt16LE(10)/10.0,
-		current: value.readInt16LE(12),
-		gas: value.readInt16LE(14)
+    ext_temperature: value.readInt16LE(10)/10.0,
+    current: value.readInt16LE(12),
+    gas: value.readInt16LE(14)
               }
               client.post('graphs/', data, function (err, res, body) {
                 if(err) {
