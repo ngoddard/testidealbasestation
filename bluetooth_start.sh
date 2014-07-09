@@ -1,3 +1,3 @@
 #!/bin/bash
-hciconfig hci0 up
-hciconfig -a
+/usr/sbin/hciconfig hci0 up
+/usr/sbin/hciconfig -a
