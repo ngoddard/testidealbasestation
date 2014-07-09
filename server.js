@@ -2,6 +2,8 @@ var request = require('request-json');
 var async = require('async');
 var noble = require('noble');
 
+var fs = require('fs');
+
 var client = request.newClient('http://klimasense.com:3001');
 var spawn = require('child_process').spawn;
 var out = fs.openSync('./out.log', 'a');

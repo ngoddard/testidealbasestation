@@ -8,7 +8,7 @@
   "scripts": {
     "preinstall": "bash deps.sh"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "dependencies": {
     "noble": "~0.3.1",
     "request-json": "~0.4.10",
