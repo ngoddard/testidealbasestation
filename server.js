@@ -22,6 +22,11 @@ setInterval(function(){
   log.info('alive');
 }, 4000);
 
+process.on('uncaughtException', function(err) {
+    // handle the error safely
+    log.err(err);
+});
+
 serialPort.on("open", function () {
   log.info('open');
   serialPort.on('data', function(data) {
