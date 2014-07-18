@@ -13,7 +13,7 @@ var serialPort = new SerialPort("/dev/ttyAMA0", {
 
 
 var log = logentries.logger({
-  token:'cc436528-4be5-4bc5-8230-4835e6268dd3'
+  token:'fc8f06cf-0862-489e-8c29-318d8514f7ae'
 });
 
 log.info('App starting');
