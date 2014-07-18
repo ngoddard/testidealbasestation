@@ -6,7 +6,7 @@ var client = request.newClient('http://klimasense.com:3001');
 
 var serialport = require("serialport")
 var SerialPort = serialport.SerialPort
-var serialPort = new SerialPort("/dev/ttyUSB0", {
+var serialPort = new SerialPort("/dev/ttyAMA0", {
   baudrate: 38400,
   parser: serialport.parsers.readline("\n")
 });
@@ -20,7 +20,7 @@ log.info('App starting');
 
 
 setInterval(function(){
-  log.info('alive');
+  log.info('alive2');
 }, 4000);
 
 process.on('uncaughtException', function(err) {
