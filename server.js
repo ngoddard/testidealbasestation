@@ -4,7 +4,8 @@ var logentries = require('node-logentries');
 
 var client = request.newClient('http://klimasense.com:3001');
 
-var SerialPort = require("serialport").SerialPort
+var serialport = require("serialport")
+var SerialPort = serialport.SerialPort
 var serialPort = new SerialPort("/dev/ttyUSB0", {
   baudrate: 38400,
   parser: serialport.parsers.readline("\n")
@@ -24,7 +25,12 @@ setInterval(function(){
 
 process.on('uncaughtException', function(err) {
     // handle the error safely
-    log.err(err);
+    log.err('uncaughtException: ' + err);
+    var killtimer = setTimeout(function() {
+          process.exit(1);
+        }, 3000);
+    // But don't keep the process open just for that!
+    killtimer.unref();
 });
 
 serialPort.on("open", function () {
@@ -33,6 +39,10 @@ serialPort.on("open", function () {
     log.info('data received: ' + data);
   });
 });
+
+serialPort.on("error", function (_error) {
+  log.err("Serial Port error: " + _error)
+})
 
 
 /*
