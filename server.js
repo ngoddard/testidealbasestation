@@ -50,7 +50,7 @@ serialPort.on("open", function () {
   log.info('open');
   serialPort.on('data', function(data) {
     log.info('data received: ' + data);
-    js_data = JSON.Parse(data);
+    js_data = JSON.parse(data);
     out_data = {
       "basestation_address": BaseStationAddress,
       "data_samples": [
