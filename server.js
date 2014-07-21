@@ -2,7 +2,7 @@ var request = require('request-json');
 var async = require('async');
 var logentries = require('node-logentries');
 //var Proto  = require("node-protobuf").Protobuf;
-var request = require("request");
+//var request = require("request");
 
 //var IdealPB2 = new Proto(fs.readFileSync("ideal.desc"));
 
