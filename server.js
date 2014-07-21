@@ -67,8 +67,8 @@ serialPort.on("open", function () {
     }
     switch(js_data.packet_type) {
       case 1:
-        out_data["data_samples"][0]["humidity"] = js_data.val1;
         out_data["data_samples"][0]["internal_temperature"] = js_data.val0;
+        out_data["data_samples"][0]["humidity"] = js_data.val1;
         sendProtobuf(out_data);
         break;
       case 2:
@@ -78,8 +78,8 @@ serialPort.on("open", function () {
         sendProtobuf(out_data);
         break;
       case 4:
-        //out_data["data_samples"]["clamp_temperature2"] = js_data.val1;
-        out_data["data_samples"][0]["clamp_temperature"] = js_data.val0;
+        out_data["data_samples"][0]["clamp_temperature1"] = js_data.val0;
+        out_data["data_samples"][0]["clamp_temperature2"] = js_data.val1;
         sendProtobuf(out_data);
         break;
       case 5:
