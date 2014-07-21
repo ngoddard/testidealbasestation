@@ -29,7 +29,7 @@ log.info('App starting');
 
 
 setInterval(function(){
-  log.info('alive2');
+  //log.info('alive2');
 }, 4000);
 
 process.on('uncaughtException', function(err) {
@@ -49,7 +49,7 @@ function sendProtobuf(data) {
 serialPort.on("open", function () {
   log.info('open');
   serialPort.on('data', function(data) {
-    log.info('data received: ' + data);
+    //log.info('data received: ' + data);
     try {
       js_data = JSON.parse(data);
     } catch (er) {
