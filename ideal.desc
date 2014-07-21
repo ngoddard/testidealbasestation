@@ -1,0 +1,16 @@
+
+¾
+ideal.protobufideal"Î
+Data
+sensorbox_address (
+	timestamp (
+timeinterval	 (
+current (
+humidity (
+internal_temperature (
+clamp_temperature (
+	gas_pulse (
+light_level ("T
+BasestationMessage
+basestation_address (!
+data_samples (2.ideal.Data

@@ -1,19 +1,28 @@
 var request = require('request-json');
 var async = require('async');
 var logentries = require('node-logentries');
+var Proto  = require("node-protobuf").Protobuf;
+var request = require("request");
+
+var IdealPB2 = new Proto(fs.readFileSync("ideal.desc"));
+
+const HomeOffset = 100;
+const BaseStationAddress = 100;
+
 
 var client = request.newClient('http://klimasense.com:3001');
 
 var serialport = require("serialport")
 var SerialPort = serialport.SerialPort
-var serialPort = new SerialPort("/dev/ttyAMA0", {
+var serialPort = new SerialPort(process.env.IDEAL_SERIAL, {
   baudrate: 38400,
   parser: serialport.parsers.readline("\n")
 });
 
 
 var log = logentries.logger({
-  token:'fc8f06cf-0862-489e-8c29-318d8514f7ae'
+  token:process.env.LOGENTRIES_TOKEN
+// token:'cc436528-4be5-4bc5-8230-4835e6268dd3'  
 });
 
 log.info('App starting');
@@ -33,10 +42,51 @@ process.on('uncaughtException', function(err) {
     killtimer.unref();
 });
 
+function sendProtobuf(data) {
+  log.info(data)
+}
+
 serialPort.on("open", function () {
   log.info('open');
   serialPort.on('data', function(data) {
     log.info('data received: ' + data);
+    js_data = JSON.Parse(data);
+    out_data = {
+      "basestation_address": BaseStationAddress,
+      "data_samples": [
+        {
+          "sensorbox_address": js_data.node_id + HomeOffset,
+          "timestamp": (Date.now() - 1262304000000)/100,
+          "timeinterval": 60
+        }
+      ]
+    }
+    switch(js_data.packet_type) {
+      case 1:
+        out_data["data_samples"]["humidity"] = js_data.val1;
+        out_data["data_samples"]["internal_temperature"] = js_data.val0;
+        sendProtobuf(out_data);
+        break;
+      case 2:
+        break;
+      case 3:
+        out_data["data_samples"]["current"] = js_data.val0;
+        sendProtobuf(out_data);
+        break;
+      case 4:
+        //out_data["data_samples"]["clamp_temperature2"] = js_data.val1;
+        out_data["data_samples"]["clamp_temperature"] = js_data.val0;
+        sendProtobuf(out_data);
+        break;
+      case 5:
+        out_data["data_samples"]["light"] = js_data.val0;
+        sendProtobuf(out_data);
+        break;
+      case 6:
+        out_data["data_samples"]["gas_pulse"] = js_data.val0;
+        sendProtobuf(out_data);
+        break;
+    }
   });
 });
 

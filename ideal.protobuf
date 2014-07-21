@@ -1,0 +1,18 @@
+package ideal;
+
+message Data {
+        required uint64     sensorbox_address = 1;
+        optional uint32     timestamp = 2;
+        optional uint32         timeinterval = 9;
+        optional uint32     current = 3;
+        optional uint32     humidity = 4;
+        optional uint32     internal_temperature = 5;
+        optional uint32     clamp_temperature = 6;
+        optional bool       gas_pulse = 7;
+        optional uint32     light_level = 8;
+}
+
+message BasestationMessage {
+        required uint32     basestation_address = 1;
+        repeated Data           data_samples = 2;
+}
