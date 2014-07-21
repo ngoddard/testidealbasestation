@@ -1,10 +1,10 @@
 var request = require('request-json');
 var async = require('async');
 var logentries = require('node-logentries');
-var Proto  = require("node-protobuf").Protobuf;
+//var Proto  = require("node-protobuf").Protobuf;
 var request = require("request");
 
-var IdealPB2 = new Proto(fs.readFileSync("ideal.desc"));
+//var IdealPB2 = new Proto(fs.readFileSync("ideal.desc"));
 
 const HomeOffset = 100;
 const BaseStationAddress = 100;
