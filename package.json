@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://janekm@bitbucket.org/janekm/ideal_node.git"
   },
-  "version": "0.0.7",
+  "version": "0.0.8",
   "dependencies": {
     "request-json": "~0.4.10",
     "async": "~0.9.0",
