@@ -50,7 +50,11 @@ serialPort.on("open", function () {
   log.info('open');
   serialPort.on('data', function(data) {
     log.info('data received: ' + data);
-    js_data = JSON.parse(data);
+    try {
+      js_data = JSON.parse(data);
+    } catch (er) {
+      return;
+    }
     out_data = {
       "basestation_address": BaseStationAddress,
       "data_samples": [
@@ -63,27 +67,27 @@ serialPort.on("open", function () {
     }
     switch(js_data.packet_type) {
       case 1:
-        out_data["data_samples"]["humidity"] = js_data.val1;
-        out_data["data_samples"]["internal_temperature"] = js_data.val0;
+        out_data["data_samples"][0]["humidity"] = js_data.val1;
+        out_data["data_samples"][0]["internal_temperature"] = js_data.val0;
         sendProtobuf(out_data);
         break;
       case 2:
         break;
       case 3:
-        out_data["data_samples"]["current"] = js_data.val0;
+        out_data["data_samples"][0]["current"] = js_data.val0;
         sendProtobuf(out_data);
         break;
       case 4:
         //out_data["data_samples"]["clamp_temperature2"] = js_data.val1;
-        out_data["data_samples"]["clamp_temperature"] = js_data.val0;
+        out_data["data_samples"][0]["clamp_temperature"] = js_data.val0;
         sendProtobuf(out_data);
         break;
       case 5:
-        out_data["data_samples"]["light"] = js_data.val0;
+        out_data["data_samples"][0]["light"] = js_data.val0;
         sendProtobuf(out_data);
         break;
       case 6:
-        out_data["data_samples"]["gas_pulse"] = js_data.val0;
+        out_data["data_samples"][0]["gas_pulse"] = js_data.val0;
         sendProtobuf(out_data);
         break;
     }
