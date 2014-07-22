@@ -6,6 +6,17 @@ var logentries = require('node-logentries');
 
 //var IdealPB2 = new Proto(fs.readFileSync("ideal.desc"));
 
+var loggly = require('loggly');
+ 
+ var client = loggly.createClient({
+    token: "938edd34-64c3-4da1-9635-275eb194beb4",
+    subdomain: "ideallog",
+    tags: ["NodeJS"],
+    json:true
+});
+
+client.log("Hello World from Node.js!");
+
 const HomeOffset = 100;
 const BaseStationAddress = 100;
 
@@ -55,6 +66,12 @@ serialPort.on("open", function () {
     } catch (er) {
       return;
     }
+    logly_data = {
+      "basestation_address": BaseStationAddress,
+      "sensorbox_address": js_data.node_id + HomeOffset,
+      "timestamp": (Date.now() - 1262304000000)/100,
+      "timeinterval": 60
+    }
     out_data = {
       "basestation_address": BaseStationAddress,
       "data_samples": [
@@ -69,26 +86,38 @@ serialPort.on("open", function () {
       case 1:
         out_data["data_samples"][0]["internal_temperature"] = js_data.val0;
         out_data["data_samples"][0]["humidity"] = js_data.val1;
+        logly_data["internal_temperature"] = js_data.val0;
+        logly_data["humidity"] = js_data.val1;
+        client.log(logly_data);
         sendProtobuf(out_data);
         break;
       case 2:
         break;
       case 3:
         out_data["data_samples"][0]["current"] = js_data.val0;
+        logly_data["current"] = js_data.val0;
         sendProtobuf(out_data);
+        client.log(logly_data);
         break;
       case 4:
         out_data["data_samples"][0]["clamp_temperature1"] = js_data.val0;
         out_data["data_samples"][0]["clamp_temperature2"] = js_data.val1;
         sendProtobuf(out_data);
+        logly_data["clamp_temperature1"] = js_data.val0;
+        logly_data["clamp_temperature2"] = js_data.val1;
+        client.log(logly_data);
         break;
       case 5:
         out_data["data_samples"][0]["light"] = js_data.val0;
         sendProtobuf(out_data);
+        logly_data["light"] = js_data.val0;
+        client.log(logly_data);
         break;
       case 6:
         out_data["data_samples"][0]["gas_pulse"] = js_data.val0;
+        logly_data["gas_pulse"] = js_data.val0;
         sendProtobuf(out_data);
+        client.log(logly_data);
         break;
     }
   });
