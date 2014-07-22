@@ -60,7 +60,7 @@ function sendProtobuf(data) {
 function sendJSON(data) {
   jsonClient.post('jsonreading/', data, function (err, res, body) {
       if(err) {
-        client.log(err);
+        client.log({"error": err});
       } else {
       //log.info(err);
       //log.info(res);
