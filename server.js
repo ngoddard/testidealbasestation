@@ -21,7 +21,7 @@ const HomeOffset = 100;
 const BaseStationAddress = 100;
 
 
-var client = request.newClient('http://klimasense.com:3001');
+//var client = request.newClient('http://klimasense.com:3001');
 
 var serialport = require("serialport")
 var SerialPort = serialport.SerialPort
