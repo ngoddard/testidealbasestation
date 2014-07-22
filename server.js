@@ -21,7 +21,7 @@ const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
 
 
-//var client = request.newClient('http://klimasense.com:3001');
+var jsonClient = request.newClient('http://129.215.164.145:3000');
 
 var serialport = require("serialport")
 var SerialPort = serialport.SerialPort
@@ -54,7 +54,21 @@ process.on('uncaughtException', function(err) {
 });
 
 function sendProtobuf(data) {
-  log.info(data)
+  //log.info(data)
+}
+
+function sendJSON(data) {
+  jsonClient.post('jsonreading/', data, function (err, res, body) {
+                if(err) {
+                  client.log(err);
+                } else {
+                //log.info(err);
+                //log.info(res);
+                //log.info(body);
+                  return client.log({"statusCode": res.statusCode});
+                }
+              })
+            });
 }
 
 serialPort.on("open", function () {
@@ -69,7 +83,7 @@ serialPort.on("open", function () {
     logly_data = {
       "basestation_address": BaseStationAddress,
       "sensorbox_address": js_data.node_id + HomeOffset,
-      "timestamp": (Date.now() - 1262304000000)/100,
+      "timestamp": (Date.now())/100,
       "timeinterval": 60
     }
     out_data = {
@@ -89,6 +103,7 @@ serialPort.on("open", function () {
         logly_data["internal_temperature"] = js_data.val0;
         logly_data["humidity"] = js_data.val1;
         client.log(logly_data);
+        sendJSON(logly_data);
         sendProtobuf(out_data);
         break;
       case 2:
@@ -98,6 +113,7 @@ serialPort.on("open", function () {
         logly_data["current"] = js_data.val0;
         sendProtobuf(out_data);
         client.log(logly_data);
+        sendJSON(logly_data);
         break;
       case 4:
         out_data["data_samples"][0]["clamp_temperature1"] = js_data.val0;
@@ -106,18 +122,21 @@ serialPort.on("open", function () {
         logly_data["clamp_temperature1"] = js_data.val0;
         logly_data["clamp_temperature2"] = js_data.val1;
         client.log(logly_data);
+        sendJSON(logly_data);
         break;
       case 5:
         out_data["data_samples"][0]["light"] = js_data.val0;
         sendProtobuf(out_data);
         logly_data["light"] = js_data.val0;
         client.log(logly_data);
+        sendJSON(logly_data);
         break;
       case 6:
         out_data["data_samples"][0]["gas_pulse"] = js_data.val0;
         logly_data["gas_pulse"] = js_data.val0;
         sendProtobuf(out_data);
         client.log(logly_data);
+        sendJSON(logly_data);
         break;
     }
   });
