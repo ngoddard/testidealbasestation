@@ -59,16 +59,15 @@ function sendProtobuf(data) {
 
 function sendJSON(data) {
   jsonClient.post('jsonreading/', data, function (err, res, body) {
-                if(err) {
-                  client.log(err);
-                } else {
-                //log.info(err);
-                //log.info(res);
-                //log.info(body);
-                  return client.log({"statusCode": res.statusCode});
-                }
-              })
-            });
+      if(err) {
+        client.log(err);
+      } else {
+      //log.info(err);
+      //log.info(res);
+      //log.info(body);
+        return client.log({"statusCode": res.statusCode});
+      }
+  });
 }
 
 serialPort.on("open", function () {
