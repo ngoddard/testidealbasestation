@@ -17,8 +17,8 @@ var loggly = require('loggly');
 
 client.log("Hello World from Node.js!");
 
-const HomeOffset = 100;
-const BaseStationAddress = 100;
+const HomeOffset = 0;
+const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
 
 
 //var client = request.newClient('http://klimasense.com:3001');
