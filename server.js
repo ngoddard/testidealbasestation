@@ -62,6 +62,7 @@ function sendJSON(data) {
   jsonClient.post('jsonreading/', data, function (err, res, body) {
       if(err) {
         console.log(err);
+        client.log({"statusCode": res.statusCode});
       } else {
       //log.info(err);
       //log.info(res);
