@@ -58,6 +58,7 @@ function sendProtobuf(data) {
 }
 
 function sendJSON(data) {
+  console.log(data);
   jsonClient.post('jsonreading/', data, function (err, res, body) {
       if(err) {
         console.log(err);
