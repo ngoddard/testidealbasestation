@@ -21,7 +21,7 @@ const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
 
 
-var jsonClient = request.newClient('http://129.215.164.145:3000');
+var jsonClient = request.newClient('http://129.215.164.145:3000/');
 
 var serialport = require("serialport")
 var SerialPort = serialport.SerialPort
@@ -58,7 +58,7 @@ function sendProtobuf(data) {
 }
 
 function sendJSON(data) {
-  jsonClient.post('jsonreading/', data, function (err, res, body) {
+  jsonClient.post('jsonreading', data, function (err, res, body) {
       if(err) {
         client.log({"error": err});
       } else {
