@@ -45,7 +45,7 @@ function sendJSON(data) {
 
 serialPort.on("open", function () {
   serialPort.on('data', function(data) {
-    console.log('data received: ' + data);
+    console.log('data received : ' + data);
     try {
       js_data = JSON.parse(data);
     } catch (er) {
