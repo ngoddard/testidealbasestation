@@ -26,7 +26,7 @@ var serialPort = new SerialPort(process.env.IDEAL_SERIAL, {
 
 function sendJSON(data) {
   IDEALJSONClient.post('jsonreading/', data, function (err, res, body) {
-      if(err) {
+      if(res) {
         //console.log(err);
         client.log({"statusCode": res.statusCode});
       } else {
