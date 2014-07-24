@@ -50,31 +50,31 @@ serialPort.on("open", function () {
       "timeinterval": 60
     }
     switch(js_data.packet_type) {
-      case 1:
+      case 1: // TEMP_HUM
         JSON_data["internal_temperature"] = js_data.val0;
         JSON_data["humidity"] = js_data.val1;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
-      case 2:
+      case 2: // BROADCAST
         break;
-      case 3:
+      case 3: // CURRENT
         JSON_data["current"] = js_data.val0;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
-      case 4:
+      case 4: // CLAMPS
         JSON_data["clamp_temperature1"] = js_data.val0;
         JSON_data["clamp_temperature2"] = js_data.val1;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
-      case 5:
+      case 5: // LIGHT
         JSON_data["light"] = js_data.val0;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
-      case 6:
+      case 6: // GAS
         JSON_data["gas_pulse"] = js_data.val0;
         client.log(JSON_data);
         sendJSON(JSON_data);
