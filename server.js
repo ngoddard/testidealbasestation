@@ -18,6 +18,8 @@ var packetType = new Enum({'TEMPHUM': 1,
     json:true
 });
 
+client.log("Starting app");
+
 const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
 
