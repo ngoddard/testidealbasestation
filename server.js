@@ -2,16 +2,8 @@ var request = require('request-json');
 var async = require('async');
 
 var loggly = require('loggly');
-var Enum = require('enum');
 
-var packetType = new Enum({'TEMPHUM': 1,
-                           'BROADCAST': 2,
-                           'CURRENT': 3,
-                           'CLAMPS': 4,
-                           'LIGHT': 5,
-                           'GAS': 6 });
-
- var client = loggly.createClient({
+var client = loggly.createClient({
     token: "938edd34-64c3-4da1-9635-275eb194beb4",
     subdomain: "ideallog",
     tags: ["NodeJS"],
@@ -58,31 +50,31 @@ serialPort.on("open", function () {
       "timeinterval": 60
     }
     switch(js_data.packet_type) {
-      case packetType.TEMPHUM:
+      case 1:
         JSON_data["internal_temperature"] = js_data.val0;
         JSON_data["humidity"] = js_data.val1;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
-      case packetType.BROADCAST:
+      case 2:
         break;
-      case packetType.CURRENT:
+      case 3:
         JSON_data["current"] = js_data.val0;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
-      case packetType.CLAMPS:
+      case 4:
         JSON_data["clamp_temperature1"] = js_data.val0;
         JSON_data["clamp_temperature2"] = js_data.val1;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
-      case packetType.LIGHT:
+      case 5:
         JSON_data["light"] = js_data.val0;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
-      case packetType.GAS:
+      case 6:
         JSON_data["gas_pulse"] = js_data.val0;
         client.log(JSON_data);
         sendJSON(JSON_data);
