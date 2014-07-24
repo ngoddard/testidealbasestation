@@ -29,8 +29,6 @@ function sendJSON(data) {
       if(res) {
         //console.log(err);
         client.log({"statusCode": res.statusCode});
-      } else {
-        return client.log({"statusCode": res.statusCode});
       }
   });
 }
