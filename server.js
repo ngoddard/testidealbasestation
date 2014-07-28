@@ -15,6 +15,9 @@ var client = loggly.createClient({
 client.log("Starting app");
 
 piGlow(function(error, pi) {
+    if(error) {
+      console.log(error);
+    }
     pi.all;
 });
 
