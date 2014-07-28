@@ -1,8 +1,5 @@
 apt-get update
 apt-get install libi2c-dev
-git clone git://git.drogon.net/wiringPi
-cd wiringPi
-git pull origin
-./build
-gpio readall
-gpio load i2c
+cat "" > /etc/modprobe.d/raspi-blacklist.conf
+cat "i2c-dev" >> /etc/modules
+cat "i2c-bcm2708" >> /etc/modules
