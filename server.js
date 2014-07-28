@@ -3,6 +3,8 @@ var async = require('async');
 
 var loggly = require('loggly');
 
+var piGlow = require('piglow');
+
 var client = loggly.createClient({
     token: "938edd34-64c3-4da1-9635-275eb194beb4",
     subdomain: "ideallog",
@@ -11,6 +13,10 @@ var client = loggly.createClient({
 });
 
 client.log("Starting app");
+
+piGlow(function(error, pi) {
+    pi.all;
+});
 
 const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
