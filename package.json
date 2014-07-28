@@ -17,7 +17,7 @@
     "request": "~2.21.0",
     "loggly": "~1.0.4",
     "enum": "~0.2.6",
-    "piglow": "~2..0"
+    "piglow": "~2.1.0"
   },
   "engines": {
       "node": "0.10.22"
