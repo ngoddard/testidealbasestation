@@ -23,6 +23,7 @@ if (config.piglow) {
         console.log(error);
       }
       var piglow = pi;
+      piglow.reset();
       //pi.all;
   });
 }
