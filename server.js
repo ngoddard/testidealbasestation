@@ -17,16 +17,51 @@ var client = loggly.createClient({
 
 client.log("Starting app");
 
+var LEDs = []
+
+for (i = 0; i < 16; i++) {
+  LEDs[i] = 0;
+}
+
 if (config.piglow) {
   piGlow(function(error, pi) {
       if(error) {
         console.log(error);
       }
-      var piglow = pi;
-      piglow.reset();
+      piglow = pi;
+      piglow.reset;
       //pi.all;
   });
 }
+
+setInterval(function(){
+  if ('undefined' !== typeof piglow) {
+    piglow.startTransaction();
+    for (i = 0; i < 16; i++) {
+      if (LEDs[i] > 0) {
+        LEDs[i]-=5;
+      }
+    }
+    piglow.l_0_0 = LEDs[0];
+    piglow.l_0_1 = LEDs[1];
+    piglow.l_0_2 = LEDs[2];
+    piglow.l_0_3 = LEDs[3];
+    piglow.l_0_4 = LEDs[4];
+    piglow.l_0_5 = LEDs[5];
+    piglow.l_1_0 = LEDs[6];
+    piglow.l_1_1 = LEDs[7];
+    piglow.l_1_2 = LEDs[8];
+    piglow.l_1_3 = LEDs[9];
+    piglow.l_1_4 = LEDs[10];
+    piglow.l_1_5 = LEDs[11];
+    piglow.l_2_0 = LEDs[12];
+    piglow.l_2_1 = LEDs[13];
+    piglow.l_2_2 = LEDs[14];
+    piglow.l_2_3 = LEDs[15];
+    piglow.commitTransaction();
+  }
+}, 25);
+
 
 const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
@@ -65,7 +100,7 @@ serialPort.on("open", function () {
       "timeinterval": 60
     }
     if (config.piglow) {
-      piglow.l_0_0 = 100;
+      LEDs[js_data.node_id] = 255;
     }
     switch(js_data.packet_type) {
       case 1: // TEMP_HUM
@@ -108,7 +143,7 @@ serialPort.on("error", function (_error) {
 
 process.on('uncaughtException', function(err) {
     // handle the error safely
-    client.log('uncaughtException: ' + err);
+    console.log('uncaughtException: ' + err);
     var killtimer = setTimeout(function() {
           process.exit(1);
         }, 3000);
