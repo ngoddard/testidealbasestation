@@ -5,6 +5,9 @@ var loggly = require('loggly');
 
 var piGlow = require('piglow');
 
+var common = require('common')
+var config = common.config();
+
 var client = loggly.createClient({
     token: "938edd34-64c3-4da1-9635-275eb194beb4",
     subdomain: "ideallog",
@@ -14,15 +17,19 @@ var client = loggly.createClient({
 
 client.log("Starting app");
 
-piGlow(function(error, pi) {
-    if(error) {
-      console.log(error);
-    }
-    pi.all;
-});
+if (config.piglow) {
+  piGlow(function(error, pi) {
+      if(error) {
+        console.log(error);
+      }
+      var piglow = pi;
+      //pi.all;
+  });
+}
 
 const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
+config['basestationID'] = process.env.RESIN_DEVICE_UUID;
 
 var IDEALJSONClient = request.newClient(process.env.IDEAL_SERVER);
 
@@ -51,10 +58,13 @@ serialPort.on("open", function () {
       return;
     }
     JSON_data = {
-      "basestation_address": BaseStationAddress,
-      "sensorbox_address": js_data.node_id + HomeOffset,
+      "basestation_address": config.basestationID,
+      "sensorbox_address": js_data.node_id + config.homeOffset,
       "timestamp": (Date.now())/100,
       "timeinterval": 60
+    }
+    if (config.piglow) {
+      piglow.l_0_0 = 100;
     }
     switch(js_data.packet_type) {
       case 1: // TEMP_HUM
