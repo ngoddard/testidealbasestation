@@ -39,7 +39,7 @@ setInterval(function(){
     piglow.startTransaction();
     for (i = 0; i < 16; i++) {
       if (LEDs[i] > 0) {
-        LEDs[i]--;
+        LEDs[i]-=5;
       }
     }
     piglow.l_0_0 = LEDs[0];
@@ -60,7 +60,7 @@ setInterval(function(){
     piglow.l_2_3 = LEDs[15];
     piglow.commitTransaction();
   }
-}, 100);
+}, 25);
 
 
 const HomeOffset = 0;
@@ -100,7 +100,7 @@ serialPort.on("open", function () {
       "timeinterval": 60
     }
     if (config.piglow) {
-      LEDs[js_data.node_id] = 100;
+      LEDs[js_data.node_id] = 255;
     }
     switch(js_data.packet_type) {
       case 1: // TEMP_HUM
