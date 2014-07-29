@@ -3,9 +3,9 @@ var async = require('async');
 
 var loggly = require('loggly');
 
+var common = require('./common')
 var piGlow = require('piglow');
 
-var common = require('./common')
 var config = common.config();
 
 var client = loggly.createClient({
