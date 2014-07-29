@@ -28,14 +28,14 @@ if (config.piglow) {
       if(error) {
         console.log(error);
       }
-      var piglow = pi;
+      piglow = pi;
       piglow.reset;
       //pi.all;
   });
 }
 
 setInterval(function(){
-  if (piglow) {
+  if ('undefined' !== typeof piglow) {
     piglow.startTransaction();
     for (i = 0; i < 16; i++) {
       if (LEDs[i] > 0) {
