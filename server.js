@@ -5,7 +5,7 @@ var loggly = require('loggly');
 
 var piGlow = require('piglow');
 
-var common = require('common')
+var common = require('./common')
 var config = common.config();
 
 var client = loggly.createClient({
