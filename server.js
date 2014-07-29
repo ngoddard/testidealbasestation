@@ -39,7 +39,7 @@ setInterval(function(){
     piglow.startTransaction();
     for (i = 0; i < 16; i++) {
       if (LEDs[i] > 0) {
-        LEDs[i]-=5;
+        LEDs[i]-=1;
       }
     }
     piglow.l_0_0 = LEDs[0];
