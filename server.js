@@ -19,7 +19,7 @@ client.log("Starting app");
 
 var LEDs = []
 
-for (int i = 0; i < 16; i++) {
+for (i = 0; i < 16; i++) {
   LEDs[i] = 0;
 }
 
