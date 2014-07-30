@@ -39,7 +39,7 @@ setInterval(function(){
     piglow.startTransaction();
     for (i = 0; i < 16; i++) {
       if (LEDs[i] > 0) {
-        LEDs[i]-=1;
+INPUT_REP_MOVEMENT_INDEX        LEDs[i]-=1;
       }
     }
     piglow.l_0_0 = LEDs[0];
@@ -47,13 +47,13 @@ setInterval(function(){
     piglow.l_0_2 = LEDs[2];
     piglow.l_0_3 = LEDs[3];
     piglow.l_0_4 = LEDs[4];
-    piglow.l_0_5 = LEDs[5];
+    piglow.l_0_5 = LEDs[5] / 2;
     piglow.l_1_0 = LEDs[6];
     piglow.l_1_1 = LEDs[7];
     piglow.l_1_2 = LEDs[8];
     piglow.l_1_3 = LEDs[9];
     piglow.l_1_4 = LEDs[10];
-    piglow.l_1_5 = LEDs[11];
+    piglow.l_1_5 = LEDs[11] / 2;
     piglow.l_2_0 = LEDs[12];
     piglow.l_2_1 = LEDs[13];
     piglow.l_2_2 = LEDs[14];
