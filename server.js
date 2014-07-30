@@ -45,19 +45,19 @@ setInterval(function(){
     piglow.l_0_0 = LEDs[0];
     piglow.l_0_1 = LEDs[1];
     piglow.l_0_2 = LEDs[2];
-    piglow.l_0_3 = LEDs[3];
+    piglow.l_0_3 = LEDs[3] / 2;
     piglow.l_0_4 = LEDs[4];
     piglow.l_0_5 = LEDs[5] / 2;
     piglow.l_1_0 = LEDs[6];
     piglow.l_1_1 = LEDs[7];
     piglow.l_1_2 = LEDs[8];
-    piglow.l_1_3 = LEDs[9];
+    piglow.l_1_3 = LEDs[9] / 2;
     piglow.l_1_4 = LEDs[10];
     piglow.l_1_5 = LEDs[11] / 2;
     piglow.l_2_0 = LEDs[12];
     piglow.l_2_1 = LEDs[13];
     piglow.l_2_2 = LEDs[14];
-    piglow.l_2_3 = LEDs[15];
+    piglow.l_2_3 = LEDs[15] / 2;
     piglow.commitTransaction();
   }
 }, 25);
@@ -128,7 +128,7 @@ serialPort.on("open", function () {
         sendJSON(JSON_data);
         break;
       case 6: // GAS
-        JSON_data["gas_pulse"] = js_data.val0;
+        JSON_data["gas_pulse"] = 1;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
