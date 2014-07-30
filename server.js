@@ -60,7 +60,7 @@ setInterval(function(){
     piglow.l_2_3 = LEDs[15] / 2;
     piglow.commitTransaction();
   }
-}, 25);
+}, 35);
 
 
 const HomeOffset = 0;
