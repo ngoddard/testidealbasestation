@@ -63,9 +63,9 @@ setInterval(function(){
 }, 35);
 
 setInterval(function(){
-  LEDS[0] = 255;
-  LEDS[1] = 255;
-}, 35);
+  LEDs[0] = 255;
+  LEDs[1] = 255;
+}, 1000);
 
 const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
