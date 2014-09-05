@@ -75,6 +75,7 @@ currentLED = 0;
 
 setInterval(function(){
   LEDs[currentLED] = 255;
+  currentLED = ((currentLED + 1) % 16)
 }, 100);
 
 const HomeOffset = 0;
