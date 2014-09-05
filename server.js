@@ -57,7 +57,7 @@ setInterval(function(){
     piglow.l_2_4 = LEDs[3];
     piglow.l_0_5 = LEDs[4];
     piglow.l_2_3 = LEDs[5];
-    piglow.l_0_1 = LEDs[6];
+    piglow.l_0_4 = LEDs[6];
     piglow.l_2_2 = LEDs[7];
     piglow.l_1_1 = LEDs[8];
     piglow.l_1_0 = LEDs[9];
