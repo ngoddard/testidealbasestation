@@ -47,7 +47,7 @@ setInterval(function(){
     piglow.startTransaction();
     for (i = 0; i < 16; i++) {
       if (LEDs[i] > 0) {
-        LEDs[i]-=8;
+        LEDs[i]-=1;
       }
     }
     // Mapping from basestation LED layout (top left to bottom righ) to piglow layout: 
@@ -69,14 +69,14 @@ setInterval(function(){
     piglow.l_0_0 = LEDs[15];
     piglow.commitTransaction();
   }
-}, 10);
+}, 35);
 
-currentLED = 0;
+//currentLED = 0;
 
 setInterval(function(){
   LEDs[currentLED] = 255;
-  currentLED = ((currentLED + 1) % 16)
-}, 100);
+//  currentLED = ((currentLED + 1) % 16)
+}, 1000);
 
 const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
@@ -115,7 +115,7 @@ serialPort.on("open", function () {
       "timeinterval": 60
     }
     if (config.piglow) {
-      //LEDs[js_data.node_id] = 255;
+      LEDs[js_data.node_id] = 255;
     }
     switch(js_data.packet_type) {
       case 1: // TEMP_HUM
