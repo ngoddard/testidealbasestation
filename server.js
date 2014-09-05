@@ -47,7 +47,7 @@ setInterval(function(){
     piglow.startTransaction();
     for (i = 0; i < 16; i++) {
       if (LEDs[i] > 0) {
-        LEDs[i]-=1;
+        LEDs[i]-=8;
       }
     }
     // Mapping from basestation LED layout (top left to bottom righ) to piglow layout: 
