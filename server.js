@@ -17,6 +17,14 @@ var client = loggly.createClient({
 
 client.log("Starting app");
 
+if (process.getuid) {
+  console.log('Current uid: ' + process.getuid());
+}
+
+if (process.getgroups) {
+  console.log('Current groups: ' + process.getgroups());
+}
+
 var LEDs = []
 
 for (i = 0; i < 16; i++) {
