@@ -50,29 +50,32 @@ setInterval(function(){
         LEDs[i]-=1;
       }
     }
-    piglow.l_0_0 = LEDs[0];
-    piglow.l_0_1 = LEDs[1];
-    piglow.l_0_2 = LEDs[2];
-    piglow.l_0_3 = LEDs[3] / 2;
-    piglow.l_0_4 = LEDs[4];
-    piglow.l_0_5 = LEDs[5] / 2;
-    piglow.l_1_0 = LEDs[6];
-    piglow.l_1_1 = LEDs[7];
-    piglow.l_1_2 = LEDs[8];
-    piglow.l_1_3 = LEDs[9] / 2;
-    piglow.l_1_4 = LEDs[10];
-    piglow.l_1_5 = LEDs[11] / 2;
-    piglow.l_2_0 = LEDs[12];
-    piglow.l_2_1 = LEDs[13];
-    piglow.l_2_2 = LEDs[14];
-    piglow.l_2_3 = LEDs[15] / 2;
+    // Mapping from basestation LED layout (top left to bottom righ) to piglow layout: 
+    piglow.l_1_2 = LEDs[0];
+    piglow.l_1_5 = LEDs[1];
+    piglow.l_2_5 = LEDs[2];
+    piglow.l_2_4 = LEDs[3];
+    piglow.l_0_5 = LEDs[4];
+    piglow.l_2_3 = LEDs[5];
+    piglow.l_0_1 = LEDs[6];
+    piglow.l_2_2 = LEDs[7];
+    piglow.l_1_1 = LEDs[8];
+    piglow.l_1_0 = LEDs[9];
+    piglow.l_1_3 = LEDs[10];
+    piglow.l_1_4 = LEDs[11];
+    piglow.l_0_3 = LEDs[12];
+    piglow.l_0_2 = LEDs[13];
+    piglow.l_0_1 = LEDs[14];
+    piglow.l_0_0 = LEDs[15];
     piglow.commitTransaction();
   }
-}, 35);
+}, 10);
+
+currentLED = 0;
 
 setInterval(function(){
-  LEDs[0] = 255;
-}, 1000);
+  LEDs[currentLED] = 255;
+}, 100);
 
 const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
@@ -111,7 +114,7 @@ serialPort.on("open", function () {
       "timeinterval": 60
     }
     if (config.piglow) {
-      LEDs[js_data.node_id] = 255;
+      //LEDs[js_data.node_id] = 255;
     }
     switch(js_data.packet_type) {
       case 1: // TEMP_HUM
