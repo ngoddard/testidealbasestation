@@ -74,7 +74,7 @@ setInterval(function(){
 //currentLED = 0;
 
 setInterval(function(){
-  LEDs[currentLED] = 255;
+  LEDs[0] = 255;
 //  currentLED = ((currentLED + 1) % 16)
 }, 1000);
 
