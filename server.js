@@ -64,7 +64,6 @@ setInterval(function(){
 
 setInterval(function(){
   LEDs[0] = 255;
-  LEDs[1] = 255;
 }, 1000);
 
 const HomeOffset = 0;
