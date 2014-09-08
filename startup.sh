@@ -8,6 +8,6 @@ sleep 5
 cat /etc/modules
 sudo i2cdetect -y 1
 if [ $? -ne 0 ]; then
-    sudo shutdown -r now
+    exit 1
 fi
 node server.js
