@@ -111,6 +111,7 @@ serialPort.on("open", function () {
     JSON_data = {
       "basestation_address": config.basestationID,
       "sensorbox_address": js_data.node_id + config.homeOffset,
+      "home_id": js_data.home_id,
       "timestamp": (Date.now())/100,
       "timeinterval": 60
     }
