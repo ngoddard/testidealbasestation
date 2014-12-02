@@ -8,6 +8,7 @@ sudo modprobe i2c-bcm2708
 sleep 5
 ls /dev/i2c*
 cat /etc/modules
+lsmod
 sudo i2cdetect -y 1
 if [ $? -ne 0 ]; then
     exit 1
