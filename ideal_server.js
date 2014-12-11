@@ -132,8 +132,12 @@ serialPort.on("open", function () {
         sendJSON(JSON_data);
         break;
       case 4: // CLAMPS
-        JSON_data["clamp_temperature1"] = js_data.val0;
-        JSON_data["clamp_temperature2"] = js_data.val1;
+        if ((js_data.val0 < 1300) && (js_data.val0 > 0)) {
+          JSON_data["clamp_temperature1"] = js_data.val0 * 0.625;
+        }
+        if ((js_data.val1 < 1300) && (js_data.val1 > 0)) {
+          JSON_data["clamp_temperature2"] = js_data.val1 * 0.625;
+        }
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
