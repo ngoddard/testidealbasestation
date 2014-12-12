@@ -147,9 +147,11 @@ serialPort.on("open", function () {
         sendJSON(JSON_data);
         break;
       case 6: // GAS
-        JSON_data["gas_pulse"] = js_data.val0;
-        client.log(JSON_data);
-        sendJSON(JSON_data);
+        if (js_data.val0 > 0) {
+          JSON_data["gas_pulse"] = js_data.val0;
+          client.log(JSON_data);
+          sendJSON(JSON_data);
+        }
         break;
     }
   });
