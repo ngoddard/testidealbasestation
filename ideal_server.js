@@ -50,7 +50,7 @@ setInterval(function(){
         LEDs[i]-=1;
       }
     }
-    // Mapping from basestation LED layout (top left to bottom righ) to piglow layout: 
+    // Mapping from basestation LED layout (top left to bottom righ) to piglow layout:
     piglow.l_1_2 = LEDs[0];
     piglow.l_1_5 = LEDs[1];
     piglow.l_2_5 = LEDs[2];
@@ -147,7 +147,7 @@ serialPort.on("open", function () {
         sendJSON(JSON_data);
         break;
       case 6: // GAS
-        JSON_data["gas_pulse"] = 1;
+        JSON_data["gas_pulse"] = js_data.val0;
         client.log(JSON_data);
         sendJSON(JSON_data);
         break;
