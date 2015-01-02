@@ -149,7 +149,7 @@ serialPort.on("open", function () {
         break;
       case 6: // GAS
 
-        if (js_data.val0 > 0) {
+        //if (js_data.val0 > 0) {
 
           if (previousGasCumulativeByNodeId[js_data.node_id] == undefined) {
             JSON_data["gas_pulse"] = js_data.val0;
@@ -159,7 +159,7 @@ serialPort.on("open", function () {
           previousGasCumulativeByNodeId[js_data.node_id] = js_data.val1;
           client.log(JSON_data);
           sendJSON(JSON_data);
-        }
+        //}
         break;
     }
   });
