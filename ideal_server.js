@@ -95,6 +95,7 @@ var serialPort = new SerialPort(config.SerialPort, {
 });
 
 function sendJSON(data) {
+  console.log(JSON_data);
   IDEALJSONClient.post('jsonreading/', data, function (err, res, body) {
       if(res) {
         console.log(err);
@@ -163,7 +164,6 @@ serialPort.on("open", function () {
           }
           previousGasCumulativeByNodeId[js_data.node_id] = js_data.val1;
           client.log(JSON_data);
-          console.log(JSON_data);
           sendJSON(JSON_data);
         //}
         break;
