@@ -97,7 +97,7 @@ var serialPort = new SerialPort(config.SerialPort, {
 function sendJSON(data) {
   IDEALJSONClient.post('jsonreading/', data, function (err, res, body) {
       if(res) {
-        //console.log(err);
+        console.log(err);
         client.log({"statusCode": res.statusCode});
       }
   });
