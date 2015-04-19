@@ -163,6 +163,7 @@ serialPort.on("open", function () {
           }
           previousGasCumulativeByNodeId[js_data.node_id] = js_data.val1;
           client.log(JSON_data);
+          console.log(JSON_data);
           sendJSON(JSON_data);
         //}
         break;
