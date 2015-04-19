@@ -6,7 +6,6 @@
     "url": "https://janekm@bitbucket.org/janekm/ideal_node.git"
   },
   "scripts": {
-    "preinstall": "bash deps.sh",
     "start": "bash startup.sh"
   },
   "version": "0.0.8",

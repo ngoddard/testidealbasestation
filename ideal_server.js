@@ -37,6 +37,8 @@ if (config.piglow) {
       if(error) {
         console.log(error);
       }
+      console.log("PiGlow");
+      console.log(pi);
       piglow = pi;
       piglow.reset;
       //pi.all;
@@ -83,11 +85,11 @@ const HomeOffset = 0;
 const BaseStationAddress = process.env.RESIN_DEVICE_UUID;
 config['basestationID'] = process.env.RESIN_DEVICE_UUID;
 
-var IDEALJSONClient = request.newClient(process.env.IDEAL_SERVER);
+var IDEALJSONClient = request.newClient(config.IDEALServer);
 
 var serialport = require("serialport")
 var SerialPort = serialport.SerialPort
-var serialPort = new SerialPort(process.env.IDEAL_SERIAL, {
+var serialPort = new SerialPort(config.SerialPort, {
   baudrate: 38400,
   parser: serialport.parsers.readline("\n")
 });
@@ -101,7 +103,10 @@ function sendJSON(data) {
   });
 }
 
+console.log('about to open serial port');
+
 serialPort.on("open", function () {
+  console.log('serialPort.open');
   serialPort.on('data', function(data) {
     console.log('data received : ' + data);
     try {
