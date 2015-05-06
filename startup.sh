@@ -10,7 +10,7 @@ ls /dev/i2c*
 cat /etc/modules
 lsmod
 sudo i2cdetect -y 1
-#if [ $? -ne 0 ]; then
-#    shutdown -r now
-#fi
+if [ $? -ne 0 ]; then
+    shutdown -r now
+fi
 node server.js
