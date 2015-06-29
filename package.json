@@ -1,10 +1,6 @@
 {
   "name": "ideal-basestation",
   "description": "IDEAL basestation scripts",
-  "repository": {
-    "type": "git",
-    "url": "https://janekm@bitbucket.org/janekm/ideal_node.git"
-  },
   "scripts": {
     "start": "bash startup.sh"
   },
