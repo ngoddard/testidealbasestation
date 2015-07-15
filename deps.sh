@@ -1,5 +1,10 @@
+sleep 40
+echo "apt-get updating..." >> deps.log
 apt-get update
-apt-get install i2c-tools
+echo "apt-get removing i2ctools..." >> deps.log
+apt-get --assume-yes remove i2ctools
+echo "apt-get installing i2ctools..." >> deps.log
+apt-get --assume-yes install i2c-tools
 #
 #cat /etc/modprobe.d/raspi-blacklist.conf
 #echo "" > /etc/modprobe.d/raspi-blacklist.conf
