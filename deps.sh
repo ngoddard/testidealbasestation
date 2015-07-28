@@ -1,8 +1,3 @@
-echo " uninstalling i2c" > deps.log
-dpkg -r i2c-tools >> deps.log
-echo " installing i2c" >> deps.log
-dpkg -i i2c-tools_3.1.1-1_armhf.deb >> deps.log
-echo " deps.sh done" >> deps.log
 
 #sleep 40
 #echo "apt-get updating..." >> deps.log
